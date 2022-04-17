@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Users", type: :request do
-  describe "GET /index" do
+  describe "GET api/v1/users" do
     it "returns list of available users" do
       create(:user)
       total_users = User.all.count
       get api_v1_users_path
       expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body).count).to eq(total_users)  
+      expect(JSON.parse(response.body)['data'].count).to eq(total_users)  
     end
   end
 
@@ -16,7 +16,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       user = create(:user)
       get api_v1_user_path id: user.id
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)).to include({ 'email' => user.email })
+      expect(JSON.parse(response.body)['data']['attributes']).to include({ 'email' => user.email })
     end
   end
 
