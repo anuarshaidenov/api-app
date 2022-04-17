@@ -11,7 +11,7 @@ RSpec.describe "Api::V1::Users", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET api/v1/users/:id' do
     it "returns http success" do
       user = create(:user)
       get api_v1_user_path id: user.id
@@ -20,7 +20,7 @@ RSpec.describe "Api::V1::Users", type: :request do
     end
   end
 
-  describe "POST /show" do
+  describe 'POST /api/v1/users/' do
     it "creates a new user" do
       total_users = User.all.count
       request_body = {
@@ -34,27 +34,6 @@ RSpec.describe "Api::V1::Users", type: :request do
       post api_v1_users_path, params: request_body
       expect(response).to have_http_status(201)
       expect(User.all.count).to eq(total_users + 1)
-    end
-  end
-
-  describe "GET /create" do
-    it "returns http success" do
-      get "/api/v1/users/create"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /update" do
-    it "returns http success" do
-      get "/api/v1/users/update"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /delete" do
-    it "returns http success" do
-      get "/api/v1/users/delete"
-      expect(response).to have_http_status(:success)
     end
   end
 
