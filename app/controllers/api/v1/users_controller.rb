@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def index
+    render json: User.all, code: 200, status: :ok
   end
 
   def show
