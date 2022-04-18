@@ -47,6 +47,16 @@ RSpec.describe "Api::V1::Users", type: :request do
       patch api_v1_change_password_path, params: request_body, headers: {'Authorization': token}
       expect(response).to have_http_status(200)
     end
+
+    it "does not change user password for invalid token" do
+      user = create(:user)
+      request_body = {
+        user: { password: 'new_password' }
+      }
+      token = '2339dj'
+      patch api_v1_change_password_path, params: request_body, headers: {'Authorization': token}
+      expect(response).to have_http_status(401)
+    end
   end
 
 end
