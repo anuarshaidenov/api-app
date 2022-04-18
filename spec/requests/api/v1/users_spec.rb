@@ -37,4 +37,16 @@ RSpec.describe "Api::V1::Users", type: :request do
     end
   end
 
+  describe "PATCH api/v1/change_password" do
+    it "changes user password" do
+      user = create(:user)
+      request_body = {
+        user: { password: 'new_password' }
+      }
+      token = JsonWebToken.encode(user_id: user.id)
+      patch api_v1_change_password_path, params: request_body, headers: {'Authorization': token}
+      expect(response).to have_http_status(200)
+    end
+  end
+
 end
